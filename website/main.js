@@ -24,17 +24,28 @@ class Website extends React.Component<*, *> {
 
         let value;
         try {
-            value = Slate.Value.fromJSON(input);
+            value = Slate.Value.fromJSON(JSON.parse(input));
         } catch (e) {
+            console.log(e);
             value = Slate.Value.create();
         }
 
         return (
             <div className="container">
-                <h1>Input a Slate JSON representation</h1>
-                <textarea value={input} onChange={this.onChange} />
-                <h1>Get the hyperscript representation</h1>
-                <pre>{print(value)}</pre>
+                <div className="side-by-side">
+                    <div className="left-side">
+                        <h1>Input a Slate JSON representation</h1>
+                        <textarea
+                            id="inputarea"
+                            value={input}
+                            onChange={this.onChange}
+                        />
+                    </div>
+                    <div className="right-side">
+                        <h1>Get the hyperscript representation</h1>
+                        <pre>{print(value)}</pre>
+                    </div>
+                </div>
             </div>
         );
     }
