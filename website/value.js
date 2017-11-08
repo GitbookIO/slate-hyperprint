@@ -6,8 +6,8 @@ const h = createHyperscript({
     blocks: {
         paragraph: 'paragraph',
         heading: 'heading',
-        codeblock: 'code_block',
-        codeline: 'code_line'
+        code_block: 'code_block',
+        code_line: 'code_line'
     },
     inlines: {},
     marks: {}
@@ -22,16 +22,16 @@ export default (
                     'This page is a basic example of Slate + slate-prism + slate-edit-code plugins:'
                 }
             </paragraph>
-            <codeblock syntax="javascript">
-                <codeline>{'// Some javascript'}</codeline>
-                <codeline>{"var msg = 'Hello world';"}</codeline>
-            </codeblock>
+            <code_block syntax="javascript">
+                <code_line>{'// Some javascript'}</code_line>
+                <code_line>{"var msg = 'Hello world';"}</code_line>
+            </code_block>
 
             <paragraph>{'Syntax can be set on a per-block basis:'}</paragraph>
-            <codeblock syntax="html">
-                <codeline>{'<!-- Some HTML -->'}</codeline>
-                <codeline>{'<b>Hello World</b>'}</codeline>
-            </codeblock>
+            <code_block syntax="html">
+                <code_line>{'<!-- Some HTML -->'}</code_line>
+                <code_line>{'<b>Hello World</b>'}</code_line>
+            </code_block>
         </document>
     </value>
 );
