@@ -1,0 +1,44 @@
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
+    position: relative;
+
+    font-family: "Fira Sans", sans-serif;
+    font-size: 15px;
+}
+
+.side-by-side {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-side, .right-side {
+    min-width: 400px;
+    padding: 20px;
+    position: relative;
+}
+
+
+h1 {
+    font-size: 20px;
+}
+
+#inputarea {
+    font-family: "Fira Mono", monospace;
+    font-size: 15px;
+    height: 500px;
+    width: 100%;
+    border: none;
+    overflow: auto;
+    background: #f5f5f5;
+    padding: 0px;
+}
+
+pre {
+    font-family: "Fira Mono", monospace;
+    font-size: 15px;
+    background: #f5f5f5;
+    padding: 30px;
+    overflow: auto;
+}
