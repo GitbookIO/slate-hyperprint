@@ -1,8 +1,8 @@
 /** @jsx h */
 
 import { createHyperscript } from 'slate-hyperscript';
-import { print } from '../lib';
 import expect from 'expect';
+import { print } from '../';
 
 const h = createHyperscript({
     blocks: {
