@@ -6,7 +6,6 @@
   "repository": "git://github.com/GitbookIO/slate-hyperprint.git",
   "main": "./dist/index.js",
   "dependencies": {
-    "indent-string": "^3.2.0"
   },
   "peerDependencies": {
     "slate": "*"
