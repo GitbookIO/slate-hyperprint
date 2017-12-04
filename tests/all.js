@@ -21,7 +21,7 @@ describe('slate-hyperprint', () => {
             const module = require(resolve(fixturesDir, test));
             const { input, output, options } = module;
             const actual = hyperprint(input, options);
-            const expected = output;
+            const expected = output.trim();
 
             assert.equal(actual, expected);
         });

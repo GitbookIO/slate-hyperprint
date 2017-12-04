@@ -1,6 +1,6 @@
 /* @flow */
 
-import print from './print';
+import parse from './parse';
 import type { Options } from './options';
 import type { SlateModel } from './types';
 
@@ -13,7 +13,7 @@ function hyperprint(model: SlateModel, { indent = '    ' }: Options = {}) {
         indent
     };
 
-    return print(model, options);
+    return parse(model, options).print(options);
 }
 
 export default hyperprint;
