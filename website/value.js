@@ -16,18 +16,22 @@ const h = createHyperscript({
 export default (
     <value>
         <document>
-            <heading>{'Slate + Code Highlighting'}</heading>
+            <heading>{'Slate Hyperprint'}</heading>
             <paragraph>
                 {
-                    'This page is a basic example of Slate + slate-prism + slate-edit-code plugins:'
+                    "This page is a demo of slate-hyperprint, a tool to print a slate model to its slate-hyperscript's string representation."
                 }
             </paragraph>
+
+            <paragraph>{'Throw in some JavaScript syntax:'}</paragraph>
+
             <code_block syntax="javascript">
                 <code_line>{'// Some javascript'}</code_line>
                 <code_line>{"var msg = 'Hello world';"}</code_line>
             </code_block>
 
-            <paragraph>{'Syntax can be set on a per-block basis:'}</paragraph>
+            <paragraph>{'Properly escapes HTML too:'}</paragraph>
+
             <code_block syntax="html">
                 <code_line>{'<!-- Some HTML -->'}</code_line>
                 <code_line>{'<b>Hello World</b>'}</code_line>
