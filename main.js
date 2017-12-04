@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Slate from 'slate';
-import { print } from '../lib/';
+import hyperprint from '../dist/';
 
 import INITIAL_VALUE from './value';
 
@@ -35,15 +35,23 @@ class Website extends React.Component<*, *> {
                 <div className="side-by-side">
                     <div className="left-side">
                         <h1>Input a Slate JSON representation</h1>
-                        <textarea
-                            id="inputarea"
-                            value={input}
-                            onChange={this.onChange}
-                        />
+                        <pre>
+                            <code>
+                                <textarea
+                                    id="inputarea"
+                                    value={input}
+                                    onChange={this.onChange}
+                                />
+                            </code>
+                        </pre>
                     </div>
                     <div className="right-side">
                         <h1>Get the hyperscript representation</h1>
-                        <pre>{print(value)}</pre>
+                        <pre>
+                            <code className="language-jsx">
+                                {hyperprint(value)}
+                            </code>
+                        </pre>
                     </div>
                 </div>
             </div>
