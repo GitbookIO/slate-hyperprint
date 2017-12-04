@@ -13,7 +13,9 @@ function hyperprint(model: SlateModel, { indent = '    ' }: Options = {}) {
         indent
     };
 
-    return parse(model, options).print(options);
+    return parse(model, options)
+        .map(tag => tag.print(options))
+        .join('\n');
 }
 
 export default hyperprint;

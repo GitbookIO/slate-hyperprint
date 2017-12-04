@@ -9,11 +9,11 @@ function shouldBeEscaped(s: string): boolean {
 function preserveTrailingSpace(s: string): string {
     let result = s;
     if (result.endsWith(' ')) {
-        result = result.replace(/^(\S*)(\s*)$/, "$1{'$2'}");
+        result = result.replace(/^(.*\S)(\s*)$/, "$1{'$2'}");
     }
 
     if (result.startsWith(' ')) {
-        result = result.replace(/^(\s*)(\S*)$/, "{'$1'}$2");
+        result = result.replace(/^(\s*)(\S.*)$/, "{'$1'}$2");
     }
 
     return result;

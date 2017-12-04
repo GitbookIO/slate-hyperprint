@@ -6,40 +6,70 @@ import { printString } from './utils';
 
 // All Tag parsers
 const PARSERS = {
-    value: (value, options) =>
+    value: (value, options) => [
         Tag({
             name: 'value',
             attributes: value.data.toJSON(),
-            children: [parse(value.document, options)]
-        }),
-    document: (document, options) =>
+            children: parse(value.document, options)
+        })
+    ],
+    // COMPAT
+    state: (state, options) => PARSERS.value(state, options),
+    document: (document, options) => [
         Tag({
             name: 'document',
             attributes: document.data.toJSON(),
-            children: document.nodes.toArray().map(node => parse(node, options))
-        }),
-    block: (block, options) =>
+            children: document.nodes
+                .flatMap(node => parse(node, options))
+                .toArray()
+        })
+    ],
+    block: (block, options) => [
         Tag({
             name: block.type,
             attributes: block.data.toJSON(),
-            children: block.nodes.toArray().map(node => parse(node, options))
-        }),
-    inline: (inline, options) =>
+            children: block.nodes
+                .flatMap(node => parse(node, options))
+                .toArray()
+        })
+    ],
+    inline: (inline, options) => [
         Tag({
             name: inline.type,
             attributes: inline.data.toJSON(),
-            children: inline.nodes.toArray().map(node => parse(node, options))
-        }),
-    text: (text, options) => ({
-        print: () => printString(text.text)
-    }),
-    range: (range, options) => 'TODO'
+            children: inline.nodes
+                .flatMap(node => parse(node, options))
+                .toArray()
+        })
+    ],
+    text: (text, options) => {
+        // COMPAT
+        const leaves = text.getLeaves ? text.getLeaves() : text.getRanges();
+        return leaves.flatMap(leaf => parse(leaf, options)).toArray();
+    },
+    leaf: (leaf, options) =>
+        leaf.marks.reduce(
+            (acc, mark) => [
+                Tag({
+                    name: mark.type,
+                    attributes: mark.data.toJSON(),
+                    children: acc
+                })
+            ],
+            [
+                {
+                    print: () => printString(leaf.text)
+                }
+            ]
+        ),
+    // COMPAT
+    range: (range, options) => PARSERS.leaf(range, options)
 };
 
 /*
  * Parse a Slate model to a Tag representation
  */
-function parse(model: SlateModel, options: Options): Tag {
+function parse(model: SlateModel, options: Options): Tag[] {
     const parser = PARSERS[model.kind];
     if (!parser) {
         throw new Error(`Unrecognized Slate model ${model.kind}`);
