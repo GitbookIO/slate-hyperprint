@@ -1,4 +1,5 @@
 // @flow
+import indentString from 'indent-string';
 import { type Options } from './options';
 
 /*
@@ -46,12 +47,14 @@ class Tag {
         }
 
         const printedChildren = children
-            .map(child => indent + child.print(options))
+            .map(child => child.print(options))
             .join('\n');
 
-        return [`<${openingTagInner}>`, printedChildren, `</${name}>`].join(
-            '\n'
-        );
+        return [
+            `<${openingTagInner}>`,
+            indentString(printedChildren, 1, { indent }),
+            `</${name}>`
+        ].join('\n');
     }
 }
 

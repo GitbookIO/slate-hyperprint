@@ -6,6 +6,7 @@
   "repository": "git://github.com/GitbookIO/slate-hyperprint.git",
   "main": "./dist/index.js",
   "dependencies": {
+    "indent-string": "^3.2.0"
   },
   "peerDependencies": {
     "slate": "*"
@@ -24,11 +25,11 @@
     "eslint-config-gitbook": "^2.0.3",
     "eslint-plugin-import": "^2.8.0",
     "expect": "^1.20.2",
-    "gh-pages": "^1.0.0",
     "flow-bin": "^0.57.3",
+    "gh-pages": "^1.0.0",
     "http-server": "^0.10.0",
-    "mocha": "^3.0.1",
     "immutable": "^3.8.2",
+    "mocha": "^3.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "slate": "^0.29.0",
@@ -38,7 +39,7 @@
   "scripts": {
     "prepublish": "babel ./src --out-dir ./dist",
     "lint": "eslint ./src ./website",
-    "test": "./node_modules/.bin/mocha ./tests/*.js --compilers js:babel-register --reporter=list",
+    "test": "./node_modules/.bin/mocha ./tests/all.js --compilers js:babel-register --reporter=list",
     "build-website": "browserify ./website/main.js -o ./website/bundle.js -t [ babelify --presets [ es2015 react stage-0 ] ]",
     "serve-website": "http-server ./website/ -p 8080",
     "start": "npm run build-website; npm run serve-website",
