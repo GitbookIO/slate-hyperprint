@@ -26,6 +26,10 @@ class Tag {
         return this;
     }
 
+    static create(...args) {
+        return new Tag(...args);
+    }
+
     // Print this tag
     print(options: Options): string {
         const { name, children, attributes } = this;
@@ -58,4 +62,4 @@ class Tag {
     }
 }
 
-export default (...args: *) => new Tag(...args);
+export default Tag;

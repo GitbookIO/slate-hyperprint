@@ -7,7 +7,7 @@ import { printString } from './utils';
 // All Tag parsers
 const PARSERS = {
     value: (value, options) => [
-        Tag({
+        Tag.create({
             name: 'value',
             attributes: value.data.toJSON(),
             children: parse(value.document, options)
@@ -16,7 +16,7 @@ const PARSERS = {
     // COMPAT
     state: (state, options) => PARSERS.value(state, options),
     document: (document, options) => [
-        Tag({
+        Tag.create({
             name: 'document',
             attributes: document.data.toJSON(),
             children: document.nodes
@@ -25,7 +25,7 @@ const PARSERS = {
         })
     ],
     block: (block, options) => [
-        Tag({
+        Tag.create({
             name: block.type,
             attributes: block.data.toJSON(),
             children: block.nodes
@@ -34,7 +34,7 @@ const PARSERS = {
         })
     ],
     inline: (inline, options) => [
-        Tag({
+        Tag.create({
             name: inline.type,
             attributes: inline.data.toJSON(),
             children: inline.nodes
@@ -50,7 +50,7 @@ const PARSERS = {
     leaf: (leaf, options) =>
         leaf.marks.reduce(
             (acc, mark) => [
-                Tag({
+                Tag.create({
                     name: mark.type,
                     attributes: mark.data.toJSON(),
                     children: acc
