@@ -2,6 +2,7 @@
 import type { SlateModel } from './types';
 import type { Options } from './options';
 import Tag from './tag';
+import { printString } from './utils';
 
 // All Tag parsers
 const PARSERS = {
@@ -30,7 +31,7 @@ const PARSERS = {
             children: inline.nodes.toArray().map(node => parse(node, options))
         }),
     text: (text, options) => ({
-        print: () => `{${JSON.stringify(text.text)}}`
+        print: () => printString(text.text)
     }),
     range: (range, options) => 'TODO'
 };

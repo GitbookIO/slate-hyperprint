@@ -8,7 +8,10 @@ const h = createHyperscript({
         code_line: 'code_line'
     },
     inlines: {},
-    marks: {}
+    marks: {
+        bold: 'bold',
+        italic: 'italic'
+    }
 });
 
 export default h;
