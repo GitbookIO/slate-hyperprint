@@ -2,15 +2,15 @@
 
 [![NPM version](https://badge.fury.io/js/slate-hyperprint.svg)](http://badge.fury.io/js/slate-hyperprint)
 
-A Slate plugin to convert Slate models to their slate-hyperscript representation.
-
-See the [online demo](https://soreine.github.io/slate-hyperprint), that converts a Slate JSON representation to a Slate hyperscript representation.
+A library to convert Slate models to their slate-hyperscript representation.
 
 You can use `slate-hyperprint` as a library to:
 
 - Run a script to easily convert Slate tests written in Yaml/JSON to hyperscript.
 - Improve the output of unit tests by comparing hyperscript strings instead of JSON values.
 - Facilitate debugging and console logging of Slate values.
+
+See the [online demo](https://soreine.github.io/slate-hyperprint), that converts a Slate JSON representation to a Slate hyperscript representation.
 
 # Setup
 
@@ -61,3 +61,7 @@ yarn run test
 ```
 yarn run build
 ```
+
+# Thanks
+
+The React equivalent [react-element-to-jsx-string](https://github.com/algolia/react-element-to-jsx-string) is and will remain a great source of inspiration.
