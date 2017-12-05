@@ -50,6 +50,16 @@ console.log(
 // </value>
 ```
 
+# Options
+
+`slate-hyperprint` accepts an option object:
+
+```js
+hyperprint(value, options);
+```
+
+- `indent: string = '   '` Indent unit to use. Defaults to 4 spaces.
+
 # Test
 
 ```
