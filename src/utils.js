@@ -8,6 +8,13 @@ function shouldBeEscaped(s: string): boolean {
 
 function preserveTrailingSpace(s: string): string {
     let result = s;
+    if (result === '') {
+        return result;
+    }
+    if (result.trim() === '') {
+        return `{'${result}'}`;
+    }
+
     if (result.endsWith(' ')) {
         result = result.replace(/^(.*\S)(\s*)$/, "$1{'$2'}");
     }

@@ -48,15 +48,16 @@ class Tag {
 
         const printedChildren = children
             .map(child => child.print(options))
-            .join('\n');
+            // Filter out empty strings
+            .filter(Boolean);
 
-        if (!printedChildren.trim()) {
+        if (printedChildren.length === 0) {
             return `<${openingTagInner} />`;
         }
 
         return [
             `<${openingTagInner}>`,
-            indentString(printedChildren, 1, { indent }),
+            indentString(printedChildren.join('\n'), 1, { indent }),
             `</${name}>`
         ].join('\n');
     }
