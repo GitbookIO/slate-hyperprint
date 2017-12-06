@@ -46,13 +46,13 @@ class Tag {
 
         const openingTagInner = [name].concat(stringifiedAttrs).join(' ');
 
-        if (children.length === 0) {
-            return `<${openingTagInner}/>`;
-        }
-
         const printedChildren = children
             .map(child => child.print(options))
             .join('\n');
+
+        if (!printedChildren.trim()) {
+            return `<${openingTagInner} />`;
+        }
 
         return [
             `<${openingTagInner}>`,
