@@ -28,18 +28,18 @@ const PARSERS = {
         Tag.create({
             name: block.type,
             attributes: block.data.toJSON(),
-            children: block.nodes
-                .flatMap(node => parse(node, options))
-                .toArray()
+            children: block.isVoid
+                ? []
+                : block.nodes.flatMap(node => parse(node, options)).toArray()
         })
     ],
     inline: (inline, options) => [
         Tag.create({
             name: inline.type,
             attributes: inline.data.toJSON(),
-            children: inline.nodes
-                .flatMap(node => parse(node, options))
-                .toArray()
+            children: inline.isVoid
+                ? []
+                : inline.nodes.flatMap(node => parse(node, options)).toArray()
         })
     ],
     text: (text, options) => {

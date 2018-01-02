@@ -5,7 +5,10 @@ import h from '../h';
 const input = (
     <value>
         <document>
-            <block type="embed" isVoid />
+            <paragraph>
+                <inline type="link" isVoid />
+            </paragraph>
+            <block type="image" isVoid data={{ src: 'image.png' }} />
         </document>
     </value>
 );
@@ -13,7 +16,10 @@ const input = (
 const output = `
 <value>
     <document>
-        <embed />
+        <paragraph>
+            <link />
+        </paragraph>
+        <image src="image.png" />
     </document>
 </value>
 `;
