@@ -16,7 +16,10 @@ if (input.length > 0) {
     const [path] = input;
     const json = yaml.safeLoad(fs.readFileSync(path));
     const document =
-        (json.state && json.state.document) || json.document || json;
+        (json.value && json.value.document) ||
+        (json.state && json.state.document) ||
+        json.document ||
+        json;
     const state = Slate.Value.create({ document });
 
     console.log(hyperprint(state.document));

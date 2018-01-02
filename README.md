@@ -82,7 +82,7 @@ $ slate-hyperprint document.yaml
 ```
 
 It will load the file, create a Slate document and print it to the console in jsx.
-Note: it will look for a `state.document` or `document` property.
+Note: it will look for a `value.document`, `state.document` or `document` property.
 It will consider the whole content as the document if none are found.
 
 # Thanks
