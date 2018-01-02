@@ -5,8 +5,13 @@
   "license": "Apache-2.0",
   "repository": "git://github.com/GitbookIO/slate-hyperprint.git",
   "main": "./dist/index.js",
+  "bin": {
+    "slate-hyperprint": "./dist/bin/cli.js"
+  },
   "dependencies": {
-    "indent-string": "^3.2.0"
+    "indent-string": "^3.2.0",
+    "js-yaml": "^3.10.0",
+    "meow": "^4.0.0"
   },
   "peerDependencies": {
     "slate": "*"

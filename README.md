@@ -72,6 +72,19 @@ yarn run test
 yarn run build
 ```
 
+# CLI
+
+slate-hyperprint also export a command line interface tool that converts yaml files to jsx.
+When installed globally (`npm install slate-hyperprint --global`) it can be used like so:
+
+```
+$ slate-hyperprint document.yaml
+```
+
+It will load the file, create a Slate document and print it to the console in jsx.
+Note: it will look for a `value.document`, `state.document` or `document` property.
+It will consider the whole content as the document if none are found.
+
 # Thanks
 
 The React equivalent [react-element-to-jsx-string](https://github.com/algolia/react-element-to-jsx-string) is and will remain a great source of inspiration.
