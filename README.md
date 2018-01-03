@@ -58,7 +58,8 @@ console.log(
 hyperprint(value, options);
 ```
 
-- `indent: string = '   '` Indent unit to use. Defaults to 4 spaces.
+- `prettier: Object = { semi: false, singleQuote: true, tabWidth: 4 }`
+  Prettier config to use when formatting the output JSX.
 
 # Test
 

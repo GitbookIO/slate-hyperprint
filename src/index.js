@@ -7,7 +7,6 @@ import type { Options } from './options';
 import type { SlateModel } from './types';
 
 const DEFAULT_OPTIONS: Options = {
-    indent: '    ',
     prettier: {
         semi: false,
         singleQuote: true,
