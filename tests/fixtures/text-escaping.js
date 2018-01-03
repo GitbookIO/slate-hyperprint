@@ -18,18 +18,10 @@ const input = (
 const output = `
 <value>
     <document>
-        <paragraph>
-            Should not escape simple text.
-        </paragraph>
-        <paragraph>
-            {'Should escape \\' properly'}
-        </paragraph>
-        <paragraph>
-            {'Should escape <, >, {, } properly'}
-        </paragraph>
-        <paragraph>
-            {' '}
-        </paragraph>
+        <paragraph>Should not escape simple text.</paragraph>
+        <paragraph>{"Should escape ' properly"}</paragraph>
+        <paragraph>{'Should escape <, >, {, } properly'}</paragraph>
+        <paragraph> </paragraph>
     </document>
 </value>
 `;

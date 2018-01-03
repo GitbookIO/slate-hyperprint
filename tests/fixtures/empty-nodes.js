@@ -16,9 +16,7 @@ const output = `
 <value>
     <document>
         <paragraph />
-        <paragraph>
-            {' '}
-        </paragraph>
+        <paragraph> </paragraph>
     </document>
 </value>
 `;
