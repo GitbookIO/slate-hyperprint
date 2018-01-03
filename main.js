@@ -26,6 +26,7 @@ class Website extends React.Component<*, *> {
         try {
             value = Slate.Value.fromJSON(JSON.parse(input));
         } catch (e) {
+            // eslint-disable-next-line no-console
             console.log(e);
             value = Slate.Value.create();
         }
