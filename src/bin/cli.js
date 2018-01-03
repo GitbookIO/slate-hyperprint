@@ -22,5 +22,6 @@ if (input.length > 0) {
         json;
     const state = Slate.Value.create({ document });
 
+    // eslint-disable-next-line no-console
     console.log(hyperprint(state.document));
 }
