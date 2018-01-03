@@ -1,6 +1,6 @@
 /* @flow */
 
-export type Options = {|
-    // String for one level of indentation
-    indent: string
-|};
+export type Options = {
+    // Prettier config to use
+    prettier: Object
+};

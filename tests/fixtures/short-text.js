@@ -2,12 +2,10 @@
 
 import h from '../h';
 
-const space = ' ';
 const input = (
     <value>
         <document>
-            <paragraph />
-            <paragraph>{space}</paragraph>
+            <paragraph>Short text.</paragraph>
         </document>
     </value>
 );
@@ -15,8 +13,7 @@ const input = (
 const output = `
 <value>
     <document>
-        <paragraph />
-        <paragraph> </paragraph>
+        <paragraph>Short text.</paragraph>
     </document>
 </value>
 `;

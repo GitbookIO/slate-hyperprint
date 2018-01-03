@@ -33,7 +33,6 @@ class Tag {
     // Print this tag
     print(options: Options): string {
         const { name, children, attributes } = this;
-        const { indent } = options;
 
         const stringifiedAttrs = Object.keys(attributes).map(key => {
             const value = attributes[key];
@@ -57,7 +56,7 @@ class Tag {
 
         return [
             `<${openingTagInner}>`,
-            indentString(printedChildren.join('\n'), 1, { indent }),
+            indentString(printedChildren.join('\n'), 1, { indent: '    ' }),
             `</${name}>`
         ].join('\n');
     }
