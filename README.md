@@ -48,6 +48,9 @@ console.log(
 //     </paragraph>
 //   </document>
 // </value>
+
+hyperprint.log(...)
+// Equivalent to console.log(hyperprint(...))
 ```
 
 # Options
