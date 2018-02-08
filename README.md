@@ -58,6 +58,8 @@ console.log(
 hyperprint(value, options);
 ```
 
+- `preserveKeys: boolean = false`
+  True to print node keys
 - `prettier: Object = { semi: false, singleQuote: true, tabWidth: 4 }`
   Prettier config to use when formatting the output JSX.
 

@@ -9,7 +9,7 @@ const PARSERS = {
     value: (value, options) => [
         Tag.create({
             name: 'value',
-            attributes: value.data.toJSON(),
+            attributes: getAttributes(value, options),
             children: parse(value.document, options)
         })
     ],
@@ -18,7 +18,7 @@ const PARSERS = {
     document: (document, options) => [
         Tag.create({
             name: 'document',
-            attributes: document.data.toJSON(),
+            attributes: getAttributes(document, options),
             children: document.nodes
                 .flatMap(node => parse(node, options))
                 .toArray()
@@ -27,7 +27,7 @@ const PARSERS = {
     block: (block, options) => [
         Tag.create({
             name: block.type,
-            attributes: block.data.toJSON(),
+            attributes: getAttributes(block, options),
             children: block.isVoid
                 ? []
                 : block.nodes.flatMap(node => parse(node, options)).toArray()
@@ -36,7 +36,7 @@ const PARSERS = {
     inline: (inline, options) => [
         Tag.create({
             name: inline.type,
-            attributes: inline.data.toJSON(),
+            attributes: getAttributes(inline, options),
             children: inline.isVoid
                 ? []
                 : inline.nodes.flatMap(node => parse(node, options)).toArray()
@@ -45,7 +45,19 @@ const PARSERS = {
     text: (text, options) => {
         // COMPAT
         const leaves = text.getLeaves ? text.getLeaves() : text.getRanges();
-        return leaves.flatMap(leaf => parse(leaf, options)).toArray();
+        const leavesTags = leaves
+            .flatMap(leaf => parse(leaf, options))
+            .toArray();
+        if (options.preserveKeys) {
+            return [
+                Tag.create({
+                    name: 'text',
+                    attributes: { key: text.key },
+                    children: leavesTags
+                })
+            ];
+        }
+        return leavesTags;
     },
     leaf: (leaf, options) =>
         leaf.marks.reduce(
@@ -65,6 +77,16 @@ const PARSERS = {
     // COMPAT
     range: (range, options) => PARSERS.leaf(range, options)
 };
+
+/*
+ * Returns attributes (with or without k)
+ */
+function getAttributes(model: SlateModel, options: Options): Object {
+    return {
+        ...(options.preserveKeys && model.key ? { key: model.key } : {}),
+        ...model.data.toJSON()
+    };
+}
 
 /*
  * Parse a Slate model to a Tag representation

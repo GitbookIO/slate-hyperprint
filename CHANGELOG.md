@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# 2.1.0 - 08/02/2018
+
+- Add option 'preserveKeys'
+
 # 2.0.1 - 07/02/2018
 
 - Increase CLI retro-compatibility
