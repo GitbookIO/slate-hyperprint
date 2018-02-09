@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# 2.1.2 - 09/02/2018
+
+- Sort tag attributes, for deterministic output
+
 # 2.1.1 - 08/02/2018
 
 - Add `hyperprint.log` util

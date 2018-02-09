@@ -34,14 +34,9 @@ class Tag {
     print(options: Options): string {
         const { name, children, attributes } = this;
 
-        const stringifiedAttrs = Object.keys(attributes).map(key => {
-            const value = attributes[key];
-            const printedValue =
-                typeof value === 'string'
-                    ? JSON.stringify(value)
-                    : `{${JSON.stringify(value)}}`;
-            return `${key}=${printedValue}`;
-        });
+        const stringifiedAttrs = Object.keys(attributes)
+            .sort()
+            .map(key => printAttribute(key, attributes[key]));
 
         const openingTagInner = [name].concat(stringifiedAttrs).join(' ');
 
@@ -60,6 +55,20 @@ class Tag {
             `</${name}>`
         ].join('\n');
     }
+}
+
+/*
+ * Print a tag attribute to 'key={value}' or 'key' for `true`
+ */
+function printAttribute(key, value) {
+    if (value === true) {
+        return key;
+    }
+    const printedValue =
+        typeof value === 'string'
+            ? JSON.stringify(value)
+            : `{${JSON.stringify(value)}}`;
+    return `${key}=${printedValue}`;
 }
 
 export default Tag;
