@@ -56,7 +56,15 @@ const PARSERS = {
                     children: leavesTags
                 })
             ];
+        } else if (options.strict && text.text === '') {
+            return [
+                Tag.create({
+                    name: 'text',
+                    children: leavesTags
+                })
+            ];
         }
+
         return leavesTags;
     },
     leaf: (leaf, options) =>

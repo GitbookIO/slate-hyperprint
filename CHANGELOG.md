@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# 2.2.0 - 13/02/2018
+
+- Add `strict` option to preserve empty texts and other things that the
+  formatting would otherwise omit
+
 # 2.1.3 - 13/02/2018
 
 - Use older version of prettier, that still works in the browser

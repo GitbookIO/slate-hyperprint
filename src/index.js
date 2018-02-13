@@ -8,6 +8,7 @@ import type { SlateModel } from './types';
 
 const DEFAULT_OPTIONS: Options = {
     preserveKeys: false,
+    strict: false,
     prettier: {
         semi: false,
         singleQuote: true,

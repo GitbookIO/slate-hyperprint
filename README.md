@@ -63,6 +63,10 @@ hyperprint(value, options);
 
 - `preserveKeys: boolean = false`
   True to print node keys
+- `strict: boolean = false`
+  True to preserve empty texts and other things that the formatting would
+  otherwise omit. Useful when using hyperprint compare values in tests, because
+  the output is stricter.
 - `prettier: Object = { semi: false, singleQuote: true, tabWidth: 4 }`
   Prettier config to use when formatting the output JSX.
 
