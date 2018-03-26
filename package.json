@@ -39,9 +39,9 @@
     "mocha": "^3.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "slate": "^0.29.0",
-    "slate-hyperscript": "^0.4.6",
-    "slate-react": "^0.10.0"
+    "slate": "^0.33.3",
+    "slate-hyperscript": "^0.5.9",
+    "slate-react": "^0.12.3"
   },
   "scripts": {
     "build": "babel ./src --out-dir ./dist",
@@ -54,6 +54,9 @@
     "deploy-website": "npm run build-website; gh-pages -d ./website"
   },
   "keywords": [
-    "slate"
+    "slate",
+    "hyperscript",
+    "print",
+    "jsx"
   ]
 }

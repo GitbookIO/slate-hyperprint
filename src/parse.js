@@ -100,9 +100,10 @@ function getAttributes(model: SlateModel, options: Options): Object {
  * Parse a Slate model to a Tag representation
  */
 function parse(model: SlateModel, options: Options): Tag[] {
-    const parser = PARSERS[model.kind];
+    const object = model.object || model.kind;
+    const parser = PARSERS[object];
     if (!parser) {
-        throw new Error(`Unrecognized Slate model ${model.kind}`);
+        throw new Error(`Unrecognized Slate model ${object}`);
     }
     return parser(model, options);
 }
