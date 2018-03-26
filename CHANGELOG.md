@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# 2.2.1 - 26/03/2018
+
+- Support slate 0.33.x (renamed `kind` to `object`)
+
 # 2.2.0 - 13/02/2018
 
 - Add `strict` option to preserve empty texts and other things that the
