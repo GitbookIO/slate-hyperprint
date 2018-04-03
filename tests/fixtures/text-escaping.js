@@ -10,6 +10,7 @@ const input = (
             <paragraph>Should not escape simple text.</paragraph>
             <paragraph>{"Should escape ' properly"}</paragraph>
             <paragraph>{'Should escape <, >, {, } properly'}</paragraph>
+            <paragraph>{"Should escape \\'"}</paragraph>
             <paragraph>{space}</paragraph>
         </document>
     </value>
