@@ -1,6 +1,7 @@
 // @flow
 import indentString from 'indent-string';
 import { type Options } from './options';
+import printAttribute from './attributes';
 
 /*
  * Represents a printable JSX tag
@@ -55,20 +56,6 @@ class Tag {
             `</${name}>`
         ].join('\n');
     }
-}
-
-/*
- * Print a tag attribute to 'key={value}' or 'key' for `true`
- */
-function printAttribute(key, value) {
-    if (value === true) {
-        return key;
-    }
-    const printedValue =
-        typeof value === 'string'
-            ? JSON.stringify(value)
-            : `{${JSON.stringify(value)}}`;
-    return `${key}=${printedValue}`;
 }
 
 export default Tag;
