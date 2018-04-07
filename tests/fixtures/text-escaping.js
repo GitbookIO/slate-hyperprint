@@ -12,6 +12,7 @@ const input = (
             <paragraph>{'Should escape <, >, {, } properly'}</paragraph>
             <paragraph>{"Should escape \\'"}</paragraph>
             <paragraph>{space}</paragraph>
+            <paragraph should={'{"escape attributes"}'} />
         </document>
     </value>
 );
@@ -22,6 +23,7 @@ const output = `
         <paragraph>Should not escape simple text.</paragraph>
         <paragraph>{"Should escape ' properly"}</paragraph>
         <paragraph>{'Should escape <, >, {, } properly'}</paragraph>
+        <paragraph>{"Should escape \\'"}</paragraph>
         <paragraph> </paragraph>
     </document>
 </value>
