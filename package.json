@@ -1,7 +1,7 @@
 {
   "name": "slate-hyperprint",
   "description": "A Slate plugin to print Slate models to their slate-hyperscript representation.",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "license": "Apache-2.0",
   "repository": "git://github.com/GitbookIO/slate-hyperprint.git",
   "main": "./dist/index.js",
