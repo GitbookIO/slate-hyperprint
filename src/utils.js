@@ -31,7 +31,10 @@ function escape(s: string): string {
         return s;
     }
 
-    return `{'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'}`;
+    return `{'${s
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/\n/g, '\\n')}'}`;
 }
 
 function printString(s: string) {
