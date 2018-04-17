@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 # Unreleased
 
+# 2.2.3 - 17/04/2018
+
+- Escape newlines for text in tags
 
 # 2.2.2 - 07/04/2018
 
