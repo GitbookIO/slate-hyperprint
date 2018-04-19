@@ -1,6 +1,6 @@
 // @flow
 
-const jsxStopChars = ['<', '>', '{', '}', "'", '"'];
+const jsxStopChars = ['<', '>', '{', '}', "'", '"', '\n'];
 
 function shouldBeEscaped(s: string): boolean {
     return jsxStopChars.some(jsxStopChar => s.includes(jsxStopChar));

@@ -16,7 +16,10 @@ const input = (
             <paragraph
                 should={{ escape: {}, object: ['etc.'], always: new Date(0) }}
             />
-            <paragraph>{"Should escape'em \n\nline breaks."}</paragraph>
+            <paragraph>
+                <bold>{"Should escape'em \n\nline breaks."}</bold>
+                {'\n'}
+            </paragraph>
         </document>
     </value>
 );
@@ -37,7 +40,10 @@ const output = `
                 object: ['etc.']
             }}
         />
-        <paragraph>{"Should escape'em \\n\\nline breaks."}</paragraph>
+        <paragraph>
+            <bold>{"Should escape'em \\n\\nline breaks."}</bold>
+            {'\\n'}
+        </paragraph>
     </document>
 </value>
 `;
