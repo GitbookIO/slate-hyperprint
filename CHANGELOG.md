@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 # Unreleased
 
+# 2.2.4 - 19/04/2018
+
+- Escape newlines for texts that contain no other special characters too
+
 # 2.2.3 - 17/04/2018
 
 - Escape newlines for text in tags
