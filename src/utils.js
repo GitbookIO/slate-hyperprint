@@ -1,9 +1,9 @@
 // @flow
 
-const jsxStopChars = ['<', '>', '{', '}', "'", '"', '\n'];
+const charsToEscape = ['<', '>', '{', '}', "'", '"', '\n'];
 
 function shouldBeEscaped(s: string): boolean {
-    return jsxStopChars.some(jsxStopChar => s.includes(jsxStopChar));
+    return charsToEscape.some(char => s.includes(char));
 }
 
 function preserveTrailingSpace(s: string): string {
