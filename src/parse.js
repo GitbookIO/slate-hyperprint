@@ -108,17 +108,31 @@ function getAttributes(
     // False to keep it under `data` and to make `type` explicit
     asShorthand: boolean = true
 ): Object {
-    return {
-        // type
-        ...(!asShorthand && model.type ? { type: model.type } : {}),
-        // key
-        ...(options.preserveKeys && model.key ? { key: model.key } : {}),
-        // data
-        ...(!asShorthand && !model.data.isEmpty()
-            ? { data: model.data.toJSON() }
-            : model.data.toJSON()),
-        ...(!asShorthand && model.isVoid ? { isVoid: true } : {})
-    };
+    let result = {};
+
+    // type
+    if (!asShorthand && model.type) {
+        result.type = model.type;
+    }
+
+    // key
+    if (options.preserveKeys && model.key) {
+        result.key = model.key;
+    }
+
+    // data
+    if (!asShorthand && !model.data.isEmpty()) {
+        result.data = model.data.toJSON();
+    } else {
+        result = { ...result, ...model.data.toJSON() };
+    }
+
+    // isVoid
+    if (!asShorthand && model.isVoid) {
+        result.isVoid = true;
+    }
+
+    return result;
 }
 
 /*
