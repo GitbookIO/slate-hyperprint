@@ -18,7 +18,12 @@ const PARSERS = {
     document: (document, options) => [
         Tag.create({
             name: 'document',
-            attributes: getAttributes(document, options),
+            attributes: {
+                ...(options.preserveKeys ? { key: document.key } : {}),
+                ...(document.data.isEmpty()
+                    ? {}
+                    : { data: document.data.toJSON() })
+            },
             children: document.nodes
                 .flatMap(node => parse(node, options))
                 .toArray()
@@ -87,7 +92,7 @@ const PARSERS = {
 };
 
 /*
- * Returns attributes (with or without k)
+ * Returns attributes (with or without key)
  */
 function getAttributes(model: SlateModel, options: Options): Object {
     return {
