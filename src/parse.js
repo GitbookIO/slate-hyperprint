@@ -18,7 +18,7 @@ const PARSERS = {
     document: (document, options) => [
         Tag.create({
             name: 'document',
-            attributes: getAttributes(document, options),
+            attributes: getAttributes(document, options, false),
             children: document.nodes
                 .flatMap(node => parse(node, options))
                 .toArray()
@@ -26,8 +26,12 @@ const PARSERS = {
     ],
     block: (block, options) => [
         Tag.create({
-            name: block.type,
-            attributes: getAttributes(block, options),
+            name: canPrintAsShorthand(block) ? block.type : block.object,
+            attributes: getAttributes(
+                block,
+                options,
+                canPrintAsShorthand(block)
+            ),
             children: block.isVoid
                 ? []
                 : block.nodes.flatMap(node => parse(node, options)).toArray()
@@ -35,8 +39,12 @@ const PARSERS = {
     ],
     inline: (inline, options) => [
         Tag.create({
-            name: inline.type,
-            attributes: getAttributes(inline, options),
+            name: canPrintAsShorthand(inline) ? inline.type : inline.object,
+            attributes: getAttributes(
+                inline,
+                options,
+                canPrintAsShorthand(inline)
+            ),
             children: inline.isVoid
                 ? []
                 : inline.nodes.flatMap(node => parse(node, options)).toArray()
@@ -71,8 +79,12 @@ const PARSERS = {
         leaf.marks.reduce(
             (acc, mark) => [
                 Tag.create({
-                    name: mark.type,
-                    attributes: mark.data.toJSON(),
+                    name: canPrintAsShorthand(mark) ? mark.type : mark.object,
+                    attributes: getAttributes(
+                        mark,
+                        options,
+                        canPrintAsShorthand(mark)
+                    ),
                     children: acc
                 })
             ],
@@ -87,13 +99,41 @@ const PARSERS = {
 };
 
 /*
- * Returns attributes (with or without k)
+ * Returns attributes (with or without key)
  */
-function getAttributes(model: SlateModel, options: Options): Object {
-    return {
-        ...(options.preserveKeys && model.key ? { key: model.key } : {}),
-        ...model.data.toJSON()
-    };
+function getAttributes(
+    model: SlateModel,
+    options: Options,
+    // True to spread the data as attributes.
+    // False to keep it under `data` and to make `type` explicit
+    asShorthand: boolean = true
+): Object {
+    let result = {};
+
+    // type
+    if (!asShorthand && model.type) {
+        result.type = model.type;
+    }
+
+    // key
+    if (options.preserveKeys && model.key) {
+        result.key = model.key;
+    }
+
+    // data
+    if (!asShorthand && !model.data.isEmpty()) {
+        result.data = model.data.toJSON();
+    } else {
+        // Spread the data as individual attributes
+        result = { ...result, ...model.data.toJSON() };
+    }
+
+    // isVoid
+    if (!asShorthand && model.isVoid) {
+        result.isVoid = true;
+    }
+
+    return result;
 }
 
 /*
@@ -106,6 +146,16 @@ function parse(model: SlateModel, options: Options): Tag[] {
         throw new Error(`Unrecognized Slate model ${object}`);
     }
     return parser(model, options);
+}
+
+/*
+ * True if the model can be print using the shorthand syntax 
+ * (data spread into attributes)
+ */
+function canPrintAsShorthand(model: SlateModel): boolean {
+    const validAttributeKey = key => /^[a-zA-Z]/.test(key);
+
+    return model.data.every((value, key) => validAttributeKey(key));
 }
 
 export default parse;
