@@ -124,6 +124,7 @@ function getAttributes(
     if (!asShorthand && !model.data.isEmpty()) {
         result.data = model.data.toJSON();
     } else {
+        // Spread the data as individual attributes
         result = { ...result, ...model.data.toJSON() };
     }
 
