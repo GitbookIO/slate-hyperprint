@@ -95,6 +95,14 @@ It will load the file, create a Slate document and print it to the console in js
 Note: it will look for a `value.document`, `state.document` or `document` property.
 It will consider the whole content as the document if none are found.
 
+You can write the output to a file like so `slate-hyperprint input.yaml > output.js`
+
+Here is a command to convert a whole bunch of yaml files in a test folder:
+
+```
+$ for file in tests/**/*.yaml; do basename=$(echo $file | sed 's/\.yaml//'); slate-hyperprint $basename.yaml > $basename.js; done;
+```
+
 # Thanks
 
 The React equivalent [react-element-to-jsx-string](https://github.com/algolia/react-element-to-jsx-string) is and will remain a great source of inspiration.
