@@ -2,10 +2,6 @@
 
 import h from '../h';
 
-const options = {
-    preserveKeys: true
-};
-
 const input = (
     <value>
         <document>
@@ -16,10 +12,10 @@ const input = (
 
 const output = `
 <value>
-    <document key="5">
-        <block type="image" isVoid data={{ 0: 'foo' }} />
+    <document>
+        <block data={{ '0': 'foo' }} isVoid type="image" />
     </document>
 </value>
 `;
 
-export { input, output, options };
+export { input, output };
