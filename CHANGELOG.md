@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 # Unreleased
 
+# 2.2.5 - 06/09/2018
+
+- Fix representation of data on `document`
+- Fix issues with data keys that are not a valid JSX attributes
+
 # 2.2.4 - 19/04/2018
 
 - Escape newlines for texts that contain no other special characters too
