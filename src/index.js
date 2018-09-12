@@ -36,8 +36,8 @@ function hyperprint(
 
     const formatted = prettier.format(printed, {
         ...options.prettier,
-      parser: 'babylon',
-      plugins: [babylon]
+        parser: 'babylon',
+        plugins: [babylon]
     });
 
     const noSemi = formatted.trim().replace(/^;/, '');
