@@ -11,9 +11,9 @@
   "dependencies": {
     "indent-string": "^3.2.0",
     "is-plain-object": "^2.0.4",
-    "js-yaml": "^3.10.0",
-    "meow": "^4.0.0",
-    "prettier": "1.6.1",
+    "js-yaml": "^3.12.0",
+    "meow": "^5.0.0",
+    "prettier": "1.13.6",
     "stringify-object": "^3.2.2"
   },
   "peerDependencies": {
@@ -51,7 +51,7 @@
     "lint": "eslint ./src ./website",
     "test": "./node_modules/.bin/mocha ./tests/all.js --compilers js:babel-register --reporter=list",
     "build-website": "browserify ./website/main.js -o ./website/bundle.js -t [ babelify --presets [ es2015 react stage-0 ] ]",
-    "serve-website": "http-server ./website/ -p 8080",
+    "serve-website": "http-server ./website/ -p 8090",
     "start": "npm run build-website; npm run serve-website",
     "deploy-website": "npm run build-website; gh-pages -d ./website"
   },

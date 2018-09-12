@@ -1,6 +1,7 @@
 /* @flow */
 
-import prettier from 'prettier';
+import prettier from 'prettier/standalone';
+import babylon from 'prettier/parser-babylon';
 
 import parse from './parse';
 import type { Options } from './options';
@@ -33,7 +34,11 @@ function hyperprint(
         .map(tag => tag.print(options))
         .join('\n');
 
-    const formatted = prettier.format(printed, options.prettier);
+    const formatted = prettier.format(printed, {
+        ...options.prettier,
+      parser: 'babylon',
+      plugins: [babylon]
+    });
 
     const noSemi = formatted.trim().replace(/^;/, '');
 
