@@ -74,7 +74,8 @@ export const insertFocusedSelectionTagMarkers = (
     );
 
     (options: any).selectionMarkerRegExp = new RegExp(
-        `${open}(${tags.join('|')})${close}`
+        `${open}(${tags.join('|')})${close}`,
+        'g'
     );
 
     return change.value;
