@@ -9,7 +9,10 @@ import {
     getModelType,
     isDecorationMark
 } from './decoration';
-import { isSelectionAtStartOfDocument } from './selection';
+import {
+    isSelectionAtStartOfDocument,
+    insertFocusedSelectionTagMarkers
+} from './selection';
 
 // All Tag parsers
 const PARSERS = {
@@ -104,7 +107,14 @@ const PARSERS = {
             ],
             [
                 {
-                    print: () => printString(leaf.text)
+                    print: () => {
+                        const selectionMarker = (options: any)
+                            .selectionMarkerRegExp;
+                        const print = printString(leaf.text);
+                        return selectionMarker
+                            ? print.replace(selectionMarker, '<$1 />')
+                            : print;
+                    }
                 }
             ]
         ),
@@ -187,9 +197,15 @@ function parse(model: SlateModel, options: Options): Tag[] {
         throw new Error(`Unrecognized Slate model ${object}`);
     }
 
-    if (object === 'value' && model.decorations.size > 0) {
-        model = applyDecorationMarks(model);
+    if (object === 'value') {
+        if (model.decorations.size > 0) {
+            model = applyDecorationMarks(model);
+        }
+        if (model.selection.isFocused) {
+            model = insertFocusedSelectionTagMarkers(model, options);
+        }
     }
+
     return parser(model, options);
 }
 
@@ -203,6 +219,12 @@ function canPrintAsShorthand(model: SlateModel): boolean {
     return model.data.every((value, key) => validAttributeKey(key));
 }
 
+/**
+ * Checks if the model if void node via hyperscript options schema object
+ * @param {Block | Inline} model
+ * @param {Options} options
+ * @returns {boolean}
+ */
 function isVoid(model: Block | Inline, options: Options): boolean {
     if (!options.hyperscript) {
         return false;
@@ -227,6 +249,12 @@ function getTagName(model: SlateModel, options: Options): string {
     return canPrintAsShorthand(model) ? tagName : model.object;
 }
 
+/**
+ * Returns hyperscript tag according to createHyperscript() factory options
+ * @param {SlateModel} model
+ * @param {HyperscriptOptions} hyperscript
+ * @returns {string}
+ */
 function getHyperscriptTag(
     model: SlateModel,
     hyperscript?: HyperScriptOptions
