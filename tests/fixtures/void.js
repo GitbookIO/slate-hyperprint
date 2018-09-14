@@ -1,14 +1,42 @@
+/** @flow */
 /** @jsx h */
 
-import h from '../h';
+import { createHyperscript } from 'slate-hyperscript';
+import type { HyperScriptOptions } from '../../src/options';
+
+const hyperscript: HyperScriptOptions = {
+    blocks: {
+        paragraph: 'paragraph',
+        image: 'Image'
+    },
+    inlines: {
+        link: 'link'
+    },
+    schema: {
+        blocks: {
+            Image: {
+                isVoid: true
+            }
+        },
+        inlines: {
+            link: {
+                isVoid: true
+            }
+        }
+    }
+};
+
+export const options = { hyperscript };
+
+const h = createHyperscript(hyperscript);
 
 const input = (
     <value>
         <document>
             <paragraph>
-                <inline type="link" isVoid />
+                <inline type="link" />
             </paragraph>
-            <block type="image" isVoid data={{ src: 'image.png' }} />
+            <block type="image" data={{ src: 'image.png' }} />
         </document>
     </value>
 );

@@ -1,9 +1,13 @@
 /** @jsx h */
 /* eslint-disable react/void-dom-elements-no-children */
-import h from '../h';
+import h, { defaultHyperscript, defaultSchema } from '../h';
 
 const options = {
-    preserveKeys: true
+    preserveKeys: true,
+    hyperscript: {
+        ...defaultHyperscript,
+        schema: defaultSchema
+    }
 };
 
 const input = (

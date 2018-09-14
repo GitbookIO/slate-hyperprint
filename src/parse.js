@@ -1,6 +1,7 @@
 // @flow
+import type { Block, Inline, Decoration, Mark } from 'slate';
 import type { SlateModel } from './types';
-import type { Options } from './options';
+import type { HyperScriptOptions, Options } from './options';
 import Tag from './tag';
 import { printString } from './utils';
 
@@ -26,26 +27,26 @@ const PARSERS = {
     ],
     block: (block, options) => [
         Tag.create({
-            name: canPrintAsShorthand(block) ? block.type : block.object,
+            name: getTagName(block, options),
             attributes: getAttributes(
                 block,
                 options,
                 canPrintAsShorthand(block)
             ),
-            children: block.isVoid
+            children: isVoid(block, options)
                 ? []
                 : block.nodes.flatMap(node => parse(node, options)).toArray()
         })
     ],
     inline: (inline, options) => [
         Tag.create({
-            name: canPrintAsShorthand(inline) ? inline.type : inline.object,
+            name: getTagName(inline, options),
             attributes: getAttributes(
                 inline,
                 options,
                 canPrintAsShorthand(inline)
             ),
-            children: inline.isVoid
+            children: isVoid(inline, options)
                 ? []
                 : inline.nodes.flatMap(node => parse(node, options)).toArray()
         })
@@ -79,7 +80,7 @@ const PARSERS = {
         leaf.marks.reduce(
             (acc, mark) => [
                 Tag.create({
-                    name: canPrintAsShorthand(mark) ? mark.type : mark.object,
+                    name: getTagName(mark, options),
                     attributes: getAttributes(
                         mark,
                         options,
@@ -128,9 +129,8 @@ function getAttributes(
         result = { ...result, ...model.data.toJSON() };
     }
 
-    // isVoid
-    if (!asShorthand && model.isVoid) {
-        result.isVoid = true;
+    if (result.type && isDecorationMark(model)) {
+        result.type = getModelType(result.type);
     }
 
     return result;
@@ -145,6 +145,21 @@ function parse(model: SlateModel, options: Options): Tag[] {
     if (!parser) {
         throw new Error(`Unrecognized Slate model ${object}`);
     }
+
+    if (object === 'value' && model.decorations.size > 0) {
+        const change = model.change();
+        model.decorations.forEach((decoration: Decoration) => {
+            change.addMarkAtRange(
+                decoration,
+                {
+                    ...decoration.mark.toJSON(),
+                    type: `__@${decoration.mark.type}@__`
+                },
+                { normalize: false }
+            );
+        });
+        model = change.value;
+    }
     return parser(model, options);
 }
 
@@ -156,6 +171,61 @@ function canPrintAsShorthand(model: SlateModel): boolean {
     const validAttributeKey = key => /^[a-zA-Z]/.test(key);
 
     return model.data.every((value, key) => validAttributeKey(key));
+}
+
+function isVoid(model: Block | Inline, options: Options): boolean {
+    if (!options.hyperscript) {
+        return false;
+    }
+
+    const { schema } = options.hyperscript;
+    const { object, type } = model;
+
+    const schemaObject = `${object}s`;
+    const isVoidNode =
+        !!schema &&
+        schema[schemaObject] &&
+        schema[schemaObject][type] &&
+        schema[schemaObject][type].isVoid;
+
+    return isVoidNode;
+}
+
+function getTagName(model: SlateModel, options: Options): string {
+    const tagName = getHyperscriptTag(model, options.hyperscript);
+
+    return canPrintAsShorthand(model) ? tagName : model.object;
+}
+
+function getHyperscriptTag(
+    model: SlateModel,
+    hyperscript?: HyperScriptOptions
+): string {
+    const modelType = getModelType(model);
+
+    const objects = `${model.object}s`;
+    if (!hyperscript || !hyperscript[objects]) {
+        return modelType;
+    }
+
+    const tagNameMap = hyperscript[objects];
+
+    const tagName = Object.keys(tagNameMap).find(
+        tag => tagNameMap[tag] === modelType
+    );
+
+    return tagName || modelType;
+}
+
+function isDecorationMark(mark: Mark): boolean {
+    return mark.object === 'mark' && /__@.+@__/.test(mark.type);
+}
+
+function getModelType(model: SlateModel): string {
+    if (!isDecorationMark(model)) {
+        return model.type;
+    }
+    return model.type.replace(/__@(.+)@__/, '$1');
 }
 
 export default parse;

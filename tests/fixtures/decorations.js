@@ -5,7 +5,9 @@ import h from '../h';
 const input = (
     <value>
         <document>
-            <block type="image" data={{ 0: 'foo' }} />
+            <paragraph>
+                Hello, <highlight>world</highlight>!
+            </paragraph>
         </document>
     </value>
 );
@@ -13,7 +15,10 @@ const input = (
 const output = `
 <value>
     <document>
-        <block data={{ '0': 'foo' }} type="image" />
+        <paragraph>
+            Hello, <highlight>world</highlight>
+            !
+        </paragraph>
     </document>
 </value>
 `;
