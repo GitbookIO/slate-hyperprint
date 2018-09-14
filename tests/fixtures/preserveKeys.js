@@ -40,6 +40,10 @@ const output = `
         </paragraph>
         <image key="e" src="image.png" />
     </document>
+    <selection>
+        <anchor key="g" />
+        <focus key="g" />
+    </selection>
 </value>
 `;
 

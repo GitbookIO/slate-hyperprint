@@ -1,9 +1,15 @@
 // @flow
-import type { Block, Inline, Decoration, Mark } from 'slate';
+import type { Block, Inline } from 'slate';
 import type { SlateModel } from './types';
 import type { HyperScriptOptions, Options } from './options';
 import Tag from './tag';
 import { printString } from './utils';
+import {
+    applyDecorationMarks,
+    getModelType,
+    isDecorationMark
+} from './decoration';
+import { isSelectionAtStartOfDocument } from './selection';
 
 // All Tag parsers
 const PARSERS = {
@@ -11,11 +17,19 @@ const PARSERS = {
         Tag.create({
             name: 'value',
             attributes: getAttributes(value, options),
-            children: parse(value.document, options)
+            children: [
+                ...parse(value.document, options),
+                ...(value.selection.isBlurred &&
+                !isSelectionAtStartOfDocument(value)
+                    ? PARSERS.selection(
+                          value.selection,
+                          options,
+                          isSelectionAtStartOfDocument(value)
+                      )
+                    : [])
+            ]
         })
     ],
-    // COMPAT
-    state: (state, options) => PARSERS.value(state, options),
     document: (document, options) => [
         Tag.create({
             name: 'document',
@@ -52,8 +66,7 @@ const PARSERS = {
         })
     ],
     text: (text, options) => {
-        // COMPAT
-        const leaves = text.getLeaves ? text.getLeaves() : text.getRanges();
+        const leaves = text.getLeaves();
         const leavesTags = leaves
             .flatMap(leaf => parse(leaf, options))
             .toArray();
@@ -95,8 +108,36 @@ const PARSERS = {
                 }
             ]
         ),
-    // COMPAT
-    range: (range, options) => PARSERS.leaf(range, options)
+    selection: (selection, options, initial) => {
+        const children =
+            options.preserveKeys || !initial
+                ? [
+                      ...PARSERS.point(selection.anchor, options, 'anchor'),
+                      ...PARSERS.point(selection.focus, options, 'focus')
+                  ]
+                : [];
+        return selection.isFocused || children.length
+            ? [
+                  Tag.create({
+                      name: 'selection',
+                      attributes: selection.isFocused ? { focused: true } : {},
+                      children
+                  })
+              ]
+            : [];
+    },
+    point: (point, options, name) => [
+        Tag.create({
+            name,
+            attributes: {
+                ...(point.offset !== 0 ? { offset: point.offset } : {}),
+                // print either path or key
+                ...(options.preserveKeys
+                    ? { key: point.key }
+                    : { path: point.path.toArray() })
+            }
+        })
+    ]
 };
 
 /*
@@ -140,25 +181,14 @@ function getAttributes(
  * Parse a Slate model to a Tag representation
  */
 function parse(model: SlateModel, options: Options): Tag[] {
-    const object = model.object || model.kind;
+    const object = model.object;
     const parser = PARSERS[object];
     if (!parser) {
         throw new Error(`Unrecognized Slate model ${object}`);
     }
 
     if (object === 'value' && model.decorations.size > 0) {
-        const change = model.change();
-        model.decorations.forEach((decoration: Decoration) => {
-            change.addMarkAtRange(
-                decoration,
-                {
-                    ...decoration.mark.toJSON(),
-                    type: `__@${decoration.mark.type}@__`
-                },
-                { normalize: false }
-            );
-        });
-        model = change.value;
+        model = applyDecorationMarks(model);
     }
     return parser(model, options);
 }
@@ -215,17 +245,6 @@ function getHyperscriptTag(
     );
 
     return tagName || modelType;
-}
-
-function isDecorationMark(mark: Mark): boolean {
-    return mark.object === 'mark' && /__@.+@__/.test(mark.type);
-}
-
-function getModelType(model: SlateModel): string {
-    if (!isDecorationMark(model)) {
-        return model.type;
-    }
-    return model.type.replace(/__@(.+)@__/, '$1');
 }
 
 export default parse;

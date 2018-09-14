@@ -20,8 +20,8 @@ if (input.length > 0) {
         (json.state && json.state.document) ||
         json.document ||
         json;
-    // COMPAT: Use Value or State
-    const state = (Slate.Value || Slate.State).create({ document });
+
+    const state = Slate.Value.create({ document });
 
     // eslint-disable-next-line no-console
     console.log(hyperprint(state.document));
