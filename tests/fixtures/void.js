@@ -2,7 +2,7 @@
 /** @jsx h */
 
 import { createHyperscript } from 'slate-hyperscript';
-import type { HyperScriptOptions } from '../../src/options';
+import type { HyperScriptOptions } from '../../src/types';
 
 const hyperscript: HyperScriptOptions = {
     blocks: {
