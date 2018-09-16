@@ -18,17 +18,17 @@ export const isDecorationMark = (mark: Mark): boolean =>
  * @returns {string}
  */
 export const getModelType = (model: SlateModel): string =>
-    !isDecorationMark(model)
-        ? model.type
-        : model.type.replace(/__@(.+)@__/, '$1');
+    isDecorationMark(model)
+        ? model.type.replace(/__@(.+)@__/, '$1')
+        : model.type;
 
 /**
  * Applies decoration marks
  *
  * The easiest way to print decoration tags is by applying decoration marks to slate document.
  * To identify marks which are decorations in real while printing tags, mark type is wrapped intentionally.
- * @param value
- * @returns {*}
+ * @param {Value} value
+ * @returns {Value}
  */
 export const applyDecorationMarks = (value: Value): Value => {
     const change = value.change();

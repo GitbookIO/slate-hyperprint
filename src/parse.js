@@ -1,7 +1,6 @@
 // @flow
 import type { Block, Inline } from 'slate';
-import type { SlateModel } from './types';
-import type { HyperScriptOptions, Options } from './options';
+import type { SlateModel, Options, HyperScriptOptions } from './types';
 import Tag from './tag';
 import { printString } from './utils';
 import {
@@ -107,14 +106,7 @@ const PARSERS = {
             ],
             [
                 {
-                    print: () => {
-                        const selectionMarker = (options: any)
-                            .selectionMarkerRegExp;
-                        const print = printString(leaf.text);
-                        return selectionMarker
-                            ? print.replace(selectionMarker, '<$1 />')
-                            : print;
-                    }
+                    print: (o: Options) => printString(leaf.text, o)
                 }
             ]
         ),

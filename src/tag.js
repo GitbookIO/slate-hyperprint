@@ -1,6 +1,6 @@
 // @flow
 import indentString from 'indent-string';
-import { type Options } from './options';
+import { type Options } from './types';
 import printAttribute from './attributes';
 
 /*

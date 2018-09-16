@@ -1,5 +1,8 @@
 // @flow
 
+import type { Options } from './types';
+import { printFocusedSelection } from './selection';
+
 const charsToEscape = ['<', '>', '{', '}', "'", '"', '\n'];
 
 function shouldBeEscaped(s: string): boolean {
@@ -37,8 +40,12 @@ function escape(s: string): string {
         .replace(/\n/g, '\\n')}'}`;
 }
 
-function printString(s: string) {
-    return preserveTrailingSpace(escape(s));
+function printString(s: string, options: Options) {
+    const selectionMarker: string = (options: any).selectionMarker;
+    s = selectionMarker
+        ? printFocusedSelection(s, selectionMarker, escape)
+        : escape(s);
+    return preserveTrailingSpace(s);
 }
 
 export { printString };
