@@ -49,19 +49,19 @@ export const insertFocusedSelectionTagMarkers = (
     options: Options
 ): Value => {
     const { selection } = value;
-    const { isCollapsed, isBlurred, isForward, anchor } = selection;
+    const { isExpanded, isBlurred, isUnset, isForward, anchor } = selection;
 
-    if (isBlurred) {
+    if (isUnset || isBlurred) {
         return value;
     }
 
     const open = selectionOpenMarker(value);
     const close = [...open].reverse().join('');
 
-    let tags = isForward ? ['focus', 'anchor'] : ['anchor', 'focus'];
+    let tags = ['cursor'];
 
-    if (isCollapsed) {
-        tags = ['cursor'];
+    if (isExpanded) {
+        tags = isForward ? ['focus', 'anchor'] : ['anchor', 'focus'];
     }
 
     const change = value.change();
