@@ -27,7 +27,7 @@ export const isSelectionAtStartOfDocument = ({
  */
 const selectionOpenMarker = (value: Value, open: string = '__@'): string => {
     const text: string = value.document.text;
-    const close = [...open].reverse().join();
+    const close = [...open].reverse().join('');
 
     return text.includes(open) || text.includes(close)
         ? selectionOpenMarker(value, `${open}@`)

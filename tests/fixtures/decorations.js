@@ -16,8 +16,7 @@ const output = `
 <value>
     <document>
         <paragraph>
-            Hello, <highlight>world</highlight>
-            !
+            Hello, <highlight>world</highlight>!
         </paragraph>
     </document>
 </value>

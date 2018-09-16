@@ -24,8 +24,7 @@ const output = `
             <bold>
                 <italic> and italic</italic>
             </bold>
-            <italic> and just italic</italic>
-            .
+            <italic> and just italic</italic>.
         </paragraph>
     </document>
 </value>

@@ -31,7 +31,7 @@ function hyperprint(
 
     const printed = parse(model, options)
         .map(tag => tag.print(options))
-        .join('\n');
+        .join('');
 
     const formatted = prettier.format(printed, {
         ...options.prettier,
