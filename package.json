@@ -49,7 +49,7 @@
     "lint": "eslint ./src ./website",
     "test": "./node_modules/.bin/mocha ./tests/all.js --compilers js:babel-register --reporter=list",
     "build-website": "browserify ./website/main.js -o ./website/bundle.js -t [ babelify --presets [ es2015 react stage-0 ] ]",
-    "serve-website": "http-server ./website/ -p 8090",
+    "serve-website": "http-server ./website/ -p 8080",
     "start": "npm run build-website; npm run serve-website",
     "deploy-website": "npm run build-website; gh-pages -d ./website"
   },
