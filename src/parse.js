@@ -15,23 +15,26 @@ import {
 
 // All Tag parsers
 const PARSERS = {
-    value: (value, options) => [
-        Tag.create({
-            name: 'value',
-            attributes: getAttributes(value, options),
-            children: [
-                ...parse(value.document, options),
-                ...(value.selection.isBlurred &&
-                !isSelectionAtStartOfDocument(value)
-                    ? PARSERS.selection(
-                          value.selection,
-                          options,
-                          isSelectionAtStartOfDocument(value)
-                      )
-                    : [])
-            ]
-        })
-    ],
+    value: (value, options) => {
+        const children = [
+            ...parse(value.document, options),
+            ...((value.selection.marks && value.selection.marks.size) ||
+            (value.selection.isBlurred && !isSelectionAtStartOfDocument(value))
+                ? PARSERS.selection(
+                      value.selection,
+                      options,
+                      isSelectionAtStartOfDocument(value)
+                  )
+                : [])
+        ];
+        return [
+            Tag.create({
+                name: 'value',
+                attributes: getAttributes(value, options),
+                children
+            })
+        ];
+    },
     document: (document, options) => [
         Tag.create({
             name: 'document',
@@ -118,11 +121,24 @@ const PARSERS = {
                       ...PARSERS.point(selection.focus, options, 'focus')
                   ]
                 : [];
-        return selection.isFocused || children.length
+        const attributes = {
+            ...(selection.isFocused ? { focused: true } : {}),
+            ...(selection.marks !== null && selection.marks.size
+                ? {
+                      marks: selection.marks
+                          .map(m => ({
+                              type: m.type,
+                              ...(m.data.size ? { data: m.data.toJSON() } : {})
+                          }))
+                          .toJS()
+                  }
+                : {})
+        };
+        return Object.keys(attributes).length || children.length
             ? [
                   Tag.create({
                       name: 'selection',
-                      attributes: selection.isFocused ? { focused: true } : {},
+                      attributes,
                       children
                   })
               ]

@@ -49,9 +49,16 @@ export const insertFocusedSelectionTagMarkers = (
     options: Options
 ): Value => {
     const { selection } = value;
-    const { isExpanded, isBlurred, isUnset, isForward, anchor } = selection;
+    const {
+        isExpanded,
+        isBlurred,
+        isUnset,
+        isForward,
+        anchor,
+        marks
+    } = selection;
 
-    if (isUnset || isBlurred) {
+    if (isUnset || isBlurred || (marks && marks.size)) {
         return value;
     }
 
