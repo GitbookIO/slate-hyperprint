@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 # Unreleased
 
+# 2.2.6 - 17/09/2018
+
+- User standalone version of prettier@1.13.0 to use hyperprint in browser environment
+
 # 2.2.5 - 06/09/2018
 
 - Fix representation of data on `document`
