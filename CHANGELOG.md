@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 # Unreleased
 
-# 2.2.7 - 28/11/2018
+# 2.3.0 - 28/11/2018
 
 - Make `slate-hyperscript` CLI accept JSON and JS files in addition to YAML files.
 
