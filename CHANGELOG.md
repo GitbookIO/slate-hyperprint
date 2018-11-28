@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 # Unreleased
 
+# 2.3.0 - 28/11/2018
+
+- Make `slate-hyperscript` CLI accept JSON and JS files in addition to YAML files.
+
 # 2.2.6 - 17/09/2018
 
 - User standalone version of prettier@1.13.0 to use hyperprint in browser environment
