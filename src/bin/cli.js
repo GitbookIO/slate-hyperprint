@@ -24,6 +24,7 @@ if (inputPath) {
             break;
         case '.json':
         case '.js':
+            // eslint-disable-next-line
             json = require(inputPath);
             break;
         default:
