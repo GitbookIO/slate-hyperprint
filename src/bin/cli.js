@@ -4,7 +4,7 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import Slate from 'slate';
+import Slate from '@gitbook/slate';
 import meow from 'meow';
 import hyperprint from '../';
 

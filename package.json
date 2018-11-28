@@ -1,5 +1,5 @@
 {
-  "name": "slate-hyperprint",
+  "name": "@gitbook/slate-hyperprint",
   "description": "A Slate plugin to print Slate models to their slate-hyperscript representation.",
   "version": "2.3.0",
   "license": "Apache-2.0",
@@ -17,7 +17,7 @@
     "stringify-object": "^3.2.2"
   },
   "peerDependencies": {
-    "slate": "*"
+    "@gitbook/slate": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -41,9 +41,9 @@
     "mocha": "^3.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "slate": "^0.34.7",
-    "slate-hyperscript": "^0.5.9",
-    "slate-react": "^0.12.3"
+    "@gitbook/slate": "^0.34.7",
+    "@gitbook/slate-hyperscript": "^0.5.22",
+    "@gitbook/slate-react": "^0.13.4"
   },
   "scripts": {
     "build": "babel ./src --out-dir ./dist",

@@ -1,7 +1,7 @@
 import assert from 'assert';
 import fs from 'fs';
 import { basename, extname, resolve } from 'path';
-import { resetKeyGenerator } from 'slate';
+import { resetKeyGenerator } from '@gitbook/slate';
 import hyperprint from '../src';
 
 /**

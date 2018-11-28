@@ -3,7 +3,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Slate from 'slate';
+import Slate from '@gitbook/slate';
 import hyperprint from '../dist/';
 
 import INITIAL_VALUE from './value';

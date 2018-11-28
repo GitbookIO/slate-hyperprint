@@ -17,7 +17,7 @@ const input = (
 
 const output = `
 <value>
-    <document key="5">
+    <document key="4">
         <image a="b" data1 data2="2" key="key1" />
         <image key="key2" src="image.png" />
     </document>
