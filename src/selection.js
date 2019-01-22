@@ -76,7 +76,13 @@ export const insertFocusedSelectionTagMarkers = (
     change.call(ch =>
         tags.forEach(tag => {
             const { path, offset } = selection[tag] || anchor;
-            ch.insertTextByPath(path, offset, `${open}${tag}${close}`);
+            ch.insertTextByPath(
+                path,
+                offset,
+                `${open}${tag}${close}`,
+                undefined,
+                { normalize: false }
+            );
         })
     );
 
