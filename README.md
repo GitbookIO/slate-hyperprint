@@ -2,6 +2,9 @@
 
 [![NPM version](https://badge.fury.io/js/slate-hyperprint.svg)](http://badge.fury.io/js/slate-hyperprint)
 
+Slate's data model has been built with serialization in mind. Specifically, its text nodes are defined in a way that makes them easier to read at a glance, but also easy to serialize to common formats like HTML and Markdown.
+And, because Slate uses plain JSON for its data, you can write serialization logic very easily.
+
 A library to convert Slate models to their slate-hyperscript representation.
 
 You can use `slate-hyperprint` as a library to:
