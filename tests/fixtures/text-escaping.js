@@ -2,6 +2,8 @@
 
 import h from '../h';
 
+const verbose = true; 
+
 const space = ' ';
 
 const input = (
